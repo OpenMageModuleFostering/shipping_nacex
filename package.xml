@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
 <package>
     <name>Shipping_Nacex</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <stability>stable</stability>
     <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
     <channel>community</channel>
     <extends/>
     <summary>Metodo de envio para nacex</summary>
     <description>Metodo de envio para nacex</description>
-    <notes>* Version estable del metodo de envio para la empresa Nacex</notes>
-    <authors><author><name>Manuel</name><user>auto-converted</user><email>manuelcanepa@gmail.com</email></author></authors>
-    <date>2008-08-22</date>
-    <time>16:16:41</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="900734fd3feec45c7276f7ad762b7013"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="520c2766de44cf2fc53f1c2118a5cd69"/><file name="system.xml" hash="b1feee308b495e57dff8db7722d25998"/></dir><dir name="Helper"><file name="Data.php" hash="92d6c5b5abad03866fef51c768e3ebdd"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="0bcbe05270488db95d7bbfa5e1ad40da"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="e28973e4c3edf00b284a998b32f53829"/></dir></dir></dir></dir></target></contents>
+    <notes>1.0.1
+*	Correccion de precios.
+*	Agregado de datos para la tienda en baleares.
+
+CHANGES:
+	-&gt;U	app/code/community/Nacex/Shipping/Model/Carrier/Spainpost.php</notes>
+    <authors><author><name>Manuel</name><user>auto-converted</user><email>manuelcanepa@gmail.com</email></author><author><name>Sophie</name><user>auto-converted</user><email>lalyostres@gmail.com</email></author></authors>
+    <date>2008-10-07</date>
+    <time>13:02:53</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="da635493540be9ff524d891f76d752f1"/><file name="system.xml" hash="36b62fc3eeb18084f6c4626373f4bbd4"/></dir><dir name="Helper"><file name="Data.php" hash="b5d80af85823935e1e91081f0b5989aa"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="8c321bf811f9858a973348efe105e3ee"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies/>
 </package>
