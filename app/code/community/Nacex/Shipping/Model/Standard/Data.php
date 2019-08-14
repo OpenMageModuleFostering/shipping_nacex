@@ -87,86 +87,89 @@ class Nacex_Shipping_Model_Standard_Data {
 		$sweight	=	$params['sweight'];
 		if(!$servicio) Mage::log(Mage::helper('nacex')->__('Servicio no disponible, alerta en linea: #%s de "%s"',__LINE__,__FILE__),Zend_Log::ALERT);
 		if(!$sweight) Mage::log(Mage::helper('nacex')->__('Peso no disponible. Se tomara el importe minimo del servicio, para una mayor precision por favor cargue el peso de los productos'),Zend_Log::ALERT);
-
 		$params	=	array('price'=>0);
-		switch($servicio){
-			case 'PROVINCIAL':
-				$params['shipping_method'] = 'PACK';
-				if($params['sweight'] <= '2000') {
+		try {
+			switch($servicio){
+				case 'PROVINCIAL':
+					$params['shipping_method'] = 'PACK';
+					if($sweight <= '2000') {
+						$params['shipping_method'] = 'BAG';
+						$params['price'] = 6.01;
+					} elseif(($sweight > '2000') && ($sweight <='5000')){
+						$params['price'] = 6.74;
+					} elseif(($sweight > '5000') && ($sweight <='10000')){
+						$params['price'] = 8.49;
+					} else {
+						$params['price'] = 8.49;
+						$peso=$sweight - 10000;
+						$params['price'] += (ceil($peso / 5000)) * 1.91;
+					}
+					break;
+				case 'REGIONAL':
+					$params['shipping_method'] = 'PACK';
+					if($sweight <= '2000') {
+						$params['shipping_method'] = 'BAG';
+						$params['price'] = 7.11;
+					} elseif(($sweight > '2000') && ($sweight <='5000')){
+						$params['price'] = 18.88;
+					} elseif(($sweight > '5000') && ($sweight <='10000')){
+						$params['price'] = 25.84;
+					} else {
+						$params['price'] = 25.84;
+						$peso=$sweight - 10000;
+						$params['price'] += (ceil($peso / 5000)) * 3.62;
+					}
+					break;
+				case 'NACIONAL':
+					$params['shipping_method'] = 'PACK';
+					if($sweight <= '2000') {
+						$params['shipping_method'] = 'BAG';
+						$params['price'] = 7.58;
+					} elseif(($sweight > '2000') && ($sweight <='5000')){
+						$params['price'] = 9.57;
+					} elseif(($sweight > '5000') && ($sweight <='10000')){
+						$params['price'] = 13.54;
+					} else {
+						$params['price'] = 13.54;
+						$peso=$sweight - 10000;
+						$params['price'] += (ceil($peso / 5000)) * 3.96;
+					}
+					break;
+				case 'NACIONAL_BALEARES':
+					$params['shipping_method'] = 'PACK';
+					if($sweight <= '2000') {
+						$params['shipping_method'] = 'BAG';
+						$params['price'] = 10.56;
+					} elseif(($sweight > '2000') && ($sweight <='4000')){
+						$params['price'] = 16.48;
+					} else {
+						$params['price'] = 16.48;
+						$peso=$sweight - 4000;
+						$params['price'] += (ceil($peso / 2000)) * 4;
+					}
+					break;
+				case 'INTRAISLAS':
+					$params['shipping_method'] = 'PACK';
+					if($sweight <= '2000') {
+						$params['shipping_method'] = 'BAG';
+						$params['price'] = 6.18;
+					} elseif(($sweight <= '5000')){
+						$params['price'] = 6.95;
+					} elseif(($sweight <='10000')){
+						$params['price'] = 8.76;
+					} else {
+						$params['price'] = 8.76;
+						$peso=$sweight - 10000;
+						$params['price'] += (ceil($peso / 5000)) * 1.99;
+					}
+					break;
+				default:
 					$params['shipping_method'] = 'BAG';
 					$params['price'] = 6.01;
-				} elseif(($sweight > '2000') && ($sweight <='5000')){
-					$params['price'] = 6.74;
-				} elseif(($sweight > '5000') && ($sweight <='10000')){
-					$params['price'] = 8.49;
-				} else {
-					$params['price'] = 8.49;
-					$peso=$sweight - 10000;
-					$params['price'] += (ceil($peso / 5000)) * 1.91;
-				}
-				break;
-			case 'REGIONAL':
-				$params['shipping_method'] = 'PACK';
-				if($sweight <= '2000') {
-					$params['shipping_method'] = 'BAG';
-					$params['price'] = 7.11;
-				} elseif(($sweight > '2000') && ($sweight <='5000')){
-					$params['price'] = 18.88;
-				} elseif(($sweight > '5000') && ($sweight <='10000')){
-					$params['price'] = 25.84;
-				} else {
-					$params['price'] = 25.84;
-					$peso=$sweight - 10000;
-					$params['price'] += (ceil($peso / 5000)) * 3.62;
-				}
-				break;
-			case 'NACIONAL':
-				$params['shipping_method'] = 'PACK';
-				if($sweight <= '2000') {
-					$params['shipping_method'] = 'BAG';
-					$params['price'] = 7.58;
-				} elseif(($sweight > '2000') && ($sweight <='5000')){
-					$params['price'] = 9.57;
-				} elseif(($sweight > '5000') && ($sweight <='10000')){
-					$params['price'] = 13.54;
-				} else {
-					$params['price'] = 13.54;
-					$peso=$sweight - 10000;
-					$params['price'] += (ceil($peso / 5000)) * 3.96;
-				}
-				break;
-			case 'NACIONAL_BALEARES':
-				$params['shipping_method'] = 'PACK';
-				if($sweight <= '2000') {
-					$params['shipping_method'] = 'BAG';
-					$params['price'] = 10.56;
-				} elseif(($sweight > '2000') && ($sweight <='4000')){
-					$params['price'] = 16.48;
-				} else {
-					$params['price'] = 16.48;
-					$peso=$sweight - 4000;
-					$params['price'] += (ceil($peso / 2000)) * 4;
-				}
-				break;
-			case 'INTRAISLAS':
-				$params['shipping_method'] = 'PACK';
-				if($sweight <= '2000') {
-					$params['shipping_method'] = 'BAG';
-					$params['price'] = 6.18;
-				} elseif(($sweight <= '5000')){
-					$params['price'] = 6.95;
-				} elseif(($sweight <='10000')){
-					$params['price'] = 8.76;
-				} else {
-					$params['price'] = 8.76;
-					$peso=$sweight - 10000;
-					$params['price'] += (ceil($peso / 5000)) * 1.99;
-				}
-				break;
-			default:
-				$params['shipping_method'] = 'BAG';
-				$params['price'] = 6.01;
-				break;
+					break;
+			}
+		} catch (Exception $e) {
+			Mage::logException($e);
 		}
 		// Agrega el iva mas un Euro
 		$params['price']	=	($params['price'] * 1.16) + 1;
