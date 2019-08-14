@@ -1,25 +1,21 @@
 <?xml version="1.0"?>
 <package>
     <name>Shipping_Nacex</name>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <stability>stable</stability>
     <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
     <channel>community</channel>
     <extends/>
     <summary>Metodo de envio para nacex</summary>
     <description>Metodo de envio para nacex</description>
-    <notes>1.0.4
-*	Permite configurar si toma el peso de los productos en gramos o en kilos.
+    <notes>*	Arregla el error "Undefined variable: region"
 
-CHANGES:
-	-&gt;A	/var/www/e-svn/html/perfume11/app/code/community/Nacex/Shipping/Model/Weightunits.php
-	-&gt;U	/var/www/e-svn/html/perfume11/app/code/community/Nacex/Shipping/Model/Carrier/Spainpost.php
-	-&gt;U	/var/www/e-svn/html/perfume11/app/code/community/Nacex/Shipping/etc/system.xml
-	-&gt;U	/var/www/e-svn/html/perfume11/app/code/community/Nacex/Shipping/etc/config.xml</notes>
+&lt;b&gt;CHANGES:&lt;/b&gt;
+	-&gt;U	/var/www/e-svn/html/perfume11/app/code/community/Nacex/Shipping/Model/Carrier/Spainpost.php</notes>
     <authors><author><name>Manuel</name><user>auto-converted</user><email>manuelcanepa@gmail.com</email></author><author><name>Sophie</name><user>auto-converted</user><email>lalyostres@gmail.com</email></author></authors>
-    <date>2008-10-17</date>
-    <time>13:29:08</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="574a026f826c38a6fe519aa6da7e05da"/><file name="system.xml" hash="860524dafb1cb9ee911aa8dd9d05facf"/></dir><dir name="Helper"><file name="Data.php" hash="b5d80af85823935e1e91081f0b5989aa"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="50584bb9e2a44b9dcdbc99f8a18eccdb"/></dir><file name="Weightunits.php" hash="77db09797e9828b7e107abbe2f282ee1"/></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
+    <date>2008-12-03</date>
+    <time>15:55:02</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="ea049f5d40de90455b7ae01ac8029ed5"/><file name="system.xml" hash="860524dafb1cb9ee911aa8dd9d05facf"/></dir><dir name="Helper"><file name="Data.php" hash="b5d80af85823935e1e91081f0b5989aa"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="0cfae46c7e829467339bb982b6eee741"/></dir><file name="Weightunits.php" hash="77db09797e9828b7e107abbe2f282ee1"/></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies/>
 </package>

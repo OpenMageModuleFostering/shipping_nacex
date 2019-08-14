@@ -54,8 +54,8 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 
 		//check if cart order value falls between the minimum and maximum order amounts required
 		$packagevalue = $request->getBaseCurrency()->convert($request->getPackageValue(), $request->getPackageCurrency());
-		$minorderval = $this->getConfigData('min_order_value');
-		$maxorderval = $this->getConfigData('max_order_value');
+		$minorderval = (int)$this->getConfigData('min_order_value');
+		$maxorderval = (int)$this->getConfigData('max_order_value');
 		if($packagevalue <= $minorderval || (($maxorderval != '0') && $packagevalue >= $maxorderval)){
 			return false;
 		}
@@ -108,6 +108,7 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				$shippingPrice += $handlingFee;
 			}
 			
+			/*
 			$this->_comment .= "TIENDA: {$this->_frompcode}\n";
 			$this->_comment .= "CLIENTE: {$this->_topcode}\n";
 			$this->_comment .= "SERVICIO: {$this->_servicio}\n";
@@ -115,6 +116,7 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 			$this->_comment .= "PRECIO: {$old_price}\n";
 			$this->_comment .= "UNIDAD DE PESO: {$sweightunit}\n";
 			$this->_comment .= "PESO: {$this->_sweight}\n";
+			*/
 
 			$method->setCarrier('spainpost');
 			$method->setCarrierTitle($this->getConfigData('title'));
@@ -130,10 +132,11 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 	}
 
 	public function getRegion($topcode,$compare=null){
+		$region	=	null;
 		$ind=substr($topcode,0,2);
 		foreach($this->_regions as $id => $val){
 			if(in_array($ind,$val)){
-				$region=$id;
+				$region	=	$id;
 				continue;
 			}
 		}
