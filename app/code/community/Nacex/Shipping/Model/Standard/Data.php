@@ -26,10 +26,9 @@ class Nacex_Shipping_Model_Standard_Data {
 	*/
 	public function setServicio($_frompcode,$_topcode){
 		$code_store	=	substr($_frompcode,0,2);
+		$_topcode	=	substr($_topcode,0,2);
 		$servicio	=	'';
-		switch($code_store){
-			// PARA LA TIENDA EN BALEARES
-			case '07':
+		if($code_store == '07' || substr($_topcode,0,2) == '07'){
 				if($this->getRegion($code_store,$_topcode)){
 					// PRECIO INTRAISLAS
 					return	'INTRAISLAS';
@@ -37,14 +36,13 @@ class Nacex_Shipping_Model_Standard_Data {
 					// PRECIO NACIONAL PARA TODA ESPAÑA
 					return	'NACIONAL_BALEARES';
 				}
-				break;
+		} else {
 			// PARA LA TIENDA EN EL RESTO DE ESPAÑA
-			default:
-				if($_frompcode == $_topcode){
+				if($code_store == $_topcode){
 					// PRECIO PROVINCIAL
 					return	'PROVINCIAL';
 				} else	{
-					$id_region = $this->getRegion($_topcode,$_frompcode);
+					$id_region = $this->getRegion($_topcode,$code_store);
 					if($id_region == true){
 						// PRECIO REGIONAL PARA PROVINCIAS DE LA MISMA REGION
 						return	'REGIONAL';
@@ -53,7 +51,6 @@ class Nacex_Shipping_Model_Standard_Data {
 						return	'NACIONAL';
 					}
 				}
-				break;
 		}
 	}
 
@@ -111,11 +108,11 @@ class Nacex_Shipping_Model_Standard_Data {
 						$params['shipping_method'] = 'BAG';
 						$params['price'] = 7.11;
 					} elseif(($sweight > '2000') && ($sweight <='5000')){
-						$params['price'] = 18.88;
+						$params['price'] = 8.76;
 					} elseif(($sweight > '5000') && ($sweight <='10000')){
-						$params['price'] = 25.84;
+						$params['price'] = 11.78;
 					} else {
-						$params['price'] = 25.84;
+						$params['price'] = 11.78;
 						$peso=$sweight - 10000;
 						$params['price'] += (ceil($peso / 5000)) * 3.62;
 					}
@@ -171,8 +168,6 @@ class Nacex_Shipping_Model_Standard_Data {
 		} catch (Exception $e) {
 			Mage::logException($e);
 		}
-		// Agrega el iva mas un Euro
-		$params['price']	=	($params['price'] * 1.16) + 1;
 		switch($code){
 			case 'naxgab':
 				// En caso de ida  y vuelta duplica el valor

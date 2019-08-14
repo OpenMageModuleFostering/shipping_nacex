@@ -62,6 +62,14 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</handling_fee>
+						<xtra translate="label">
+							<label>Extra amount</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>45</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</xtra>
 						<max_order_value translate="label">
 							<label>Maximum Order Value</label>
 							<frontend_type>text</frontend_type>
@@ -164,6 +172,14 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 						</handling_fee>
+						<xtra translate="label">
+							<label>Extra amount</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>45</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</xtra>
 						<max_order_value translate="label">
 							<label>Maximum Order Value</label>
 							<frontend_type>text</frontend_type>

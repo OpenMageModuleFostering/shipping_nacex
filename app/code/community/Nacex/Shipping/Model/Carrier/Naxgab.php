@@ -96,18 +96,22 @@ class Nacex_Shipping_Model_Carrier_Naxgab extends Mage_Shipping_Model_Carrier_Ab
 		if($destCountry == "ES") {
 			try {
 				$this->_servicio	=	Mage::getSingleton('nacex/standard_data')->setServicio($this->_frompcode,$this->_topcode);
-				$_params	=	array('servicio'=>$this->_servicio,'sweight'=>$this->_sweight,'code'=>$this->_code);
+				$_params	=	array(
+					'servicio'=>$this->_servicio,
+					'sweight'=>$this->_sweight,
+					'code'=>$this->_code
+					);
 				$datosPrecio	=	Mage::getSingleton('nacex/standard_data')->getPrecio($_params);
 				$shippingPrice	=	$datosPrecio['price'];
 				// set the handling fee type....
-				$calculateHandlingFee = $this->getConfigData('handling_type');
-				$handlingFee = $this->getConfigData('handling_fee');
 				if ($this->getConfigData('handling_type') == 'F') {
 					$shippingPrice += $this->getConfigData('handling_fee');
 				} else {
 					$handlingFee = ($shippingPrice * $this->getConfigData('handling_fee'))/100;
 					$shippingPrice += $handlingFee;
 				}
+
+				$shippingPrice	+=	$this->getConfigData('xtra');
 
 				$rate = Mage::getModel('shipping/rate_result_method');
 				$rate->setCarrier($this->_code);
