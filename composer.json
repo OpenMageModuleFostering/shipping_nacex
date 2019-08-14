@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Shipping_Nacex",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "Metodo de envio para nacex",
+    "authors": [
+    {
+        "name": "Manuel",
+        "email": "manuelcanepa@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
