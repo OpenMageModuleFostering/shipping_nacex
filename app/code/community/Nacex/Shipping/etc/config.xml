@@ -58,6 +58,7 @@
 				<max_order_value>0</max_order_value>
 				<weight_units>1</weight_units>
 				<handling_fee>0</handling_fee>
+				<allowed_methods>NAXJOW,NAXGAB</allowed_methods>
 				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
 			</spainpost>
 		</carriers>

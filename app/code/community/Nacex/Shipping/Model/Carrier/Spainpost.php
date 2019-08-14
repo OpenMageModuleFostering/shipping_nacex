@@ -49,12 +49,12 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		$origCountry = Mage::getStoreConfig('shipping/origin/country_id', $this->getStore());
 		$result = Mage::getModel('shipping/rate_result');
 
+		$error = Mage::getModel('shipping/rate_result_error');
 		if ($origCountry != "ES") {
 			if($this->getConfigData('showmethod')){
-				$error = Mage::getModel('shipping/rate_result_error');
-				$error->setCarrier('spainpost');
-				$error->setCarrierTitle($this->getConfigData('title'));
-				$error->setErrorMessage($this->getConfigData('specificerrmsg'));
+				$error->setCarrier('spainpost')
+					->setCarrierTitle($this->getConfigData('title'))
+					->setErrorMessage($this->getConfigData('specificerrmsg'));
 				$result->append($error);
 				return $result;
 			} else {
@@ -66,18 +66,28 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		$packagevalue = $request->getBaseCurrency()->convert($request->getPackageValue(), $request->getPackageCurrency());
 		$minorderval = (int)$this->getConfigData('min_order_value');
 		$maxorderval = (int)$this->getConfigData('max_order_value');
-		if($packagevalue <= $minorderval || (($maxorderval != '0') && $packagevalue >= $maxorderval)){
+		if(
+			/* EL PAQUETE ES MENOR O IGUAL AL MINIMO Y EL MINIMO ESTA HABILITADO*/
+			($packagevalue <= $minorderval) && ($minorderval > 0) || 
+			/* EL PAQUETE ES MAYOR O IGUAL AL MAXIMO Y EL MAXIMO ESTA HABILITADO*/
+			(($maxorderval != 0) && ($packagevalue >= $maxorderval))){
 			if($this->getConfigData('showmethod')){
-				$error = Mage::getModel('shipping/rate_result_error');
-				$error->setCarrier('spainpost');
-				$error->setCarrierTitle($this->getConfigData('title'));
+				$error->setCarrier('spainpost')
+					->setCarrierTitle($this->getConfigData('title'));
 				$currency	=	Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
-				$error->setErrorMessage(
-					Mage::helper('nacex')->__('Package value should be between %s and %s',
-						Mage::app()->getStore()->formatPrice($minorderval),
+				/* SI EL MINIMO Y EL MAXIMO ESTA HABILITADO*/
+				if($minorderval != 0 && $maxorderval != 0){
+					$errorMsg=Mage::helper('nacex')->__('Package value must be between %s and %s',Mage::app()->getStore()->formatPrice($minorderval),Mage::app()->getStore()->formatPrice($maxorderval));
+				/* SI EL MAXIMO ESTA HABILITADO*/
+				}elseif($maxorderval != 0){
+					$errorMsg=Mage::helper('nacex')->__('Package value must be less than %s',
 						Mage::app()->getStore()->formatPrice($maxorderval)
-					)
-				);
+					);
+				/* SI EL MINIMO ESTA HABILITADO*/
+				}else{
+					$errorMsg=Mage::helper('nacex')->__('Package value must be higher than %s',Mage::app()->getStore()->formatPrice($minorderval));
+				}
+				$error->setErrorMessage($errorMsg);
 				$result->append($error);
 				return $result;
 			} else {
