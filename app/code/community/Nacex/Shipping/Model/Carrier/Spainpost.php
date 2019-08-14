@@ -43,13 +43,23 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		// Check if this method is active
 		if (!$this->getConfigFlag('active')) {
 			return false;
-		} 
+		}
 
 		// Check if this method is even applicable (must ship from Spain)
 		$origCountry = Mage::getStoreConfig('shipping/origin/country_id', $this->getStore());
+		$result = Mage::getModel('shipping/rate_result');
 
 		if ($origCountry != "ES") {
-			return false;
+			if($this->getConfigData('showmethod')){
+				$error = Mage::getModel('shipping/rate_result_error');
+				$error->setCarrier('spainpost');
+				$error->setCarrierTitle($this->getConfigData('title'));
+				$error->setErrorMessage($this->getConfigData('specificerrmsg'));
+				$result->append($error);
+				return $result;
+			} else {
+				return false;
+			}
 		}
 
 		//check if cart order value falls between the minimum and maximum order amounts required
@@ -57,10 +67,23 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		$minorderval = (int)$this->getConfigData('min_order_value');
 		$maxorderval = (int)$this->getConfigData('max_order_value');
 		if($packagevalue <= $minorderval || (($maxorderval != '0') && $packagevalue >= $maxorderval)){
-			return false;
+			if($this->getConfigData('showmethod')){
+				$error = Mage::getModel('shipping/rate_result_error');
+				$error->setCarrier('spainpost');
+				$error->setCarrierTitle($this->getConfigData('title'));
+				$currency	=	Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+				$error->setErrorMessage(
+					Mage::helper('nacex')->__('Package value should be between %s and %s',
+						Mage::app()->getStore()->formatPrice($minorderval),
+						Mage::app()->getStore()->formatPrice($maxorderval)
+					)
+				);
+				$result->append($error);
+				return $result;
+			} else {
+				return false;
+			}
 		}
-
-		$result = Mage::getModel('shipping/rate_result');
 
 		// CODIGO POSTAL DE LA TIENDA
 		$this->_frompcode = Mage::getStoreConfig('shipping/origin/postcode', $this->getStore());
@@ -79,54 +102,47 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		// en caso contrario no
 		if($destCountry == "ES") {
 			$this->setServicio();
-			
-			$old_price	=$this->getPrecio();
-			$price=($old_price * 1.16) + 1;
+			$precioArr	=	$this->getAllowedMethods();
 
-			$method = Mage::getModel('shipping/rate_result_method');
-			
-			$type = $this->getConfigData('type');
-			$qty = $request->getPackageQty();
+			foreach ($precioArr as $key=>$method) {
+				/*
+				$this->_comment .= "TIENDA: {$this->_frompcode}\n";
+				$this->_comment .= "CLIENTE: {$this->_topcode}\n";
+				$this->_comment .= "SERVICIO: {$this->_servicio}\n";
+				$this->_comment .= "METODO: {$this->_shipping_method}\n";
+				$this->_comment .= "PRECIO: {$old_price}\n";
+				$this->_comment .= "UNIDAD DE PESO: {$sweightunit}\n";
+				$this->_comment .= "PESO: {$this->_sweight}\n";
+				<!--{$this->_comment}-->
+				*/
+				$shippingPrice = $method['precio'];
 
-			$tot = ($qty * $price);
+				// set the handling fee type....
+				$calculateHandlingFee = $this->getConfigData('handling_type');
+				$handlingFee = $this->getConfigData('handling_fee');
+				if ($this->getConfigData('handling_type') == 'F') {
+					$shippingPrice += $this->getConfigData('handling_fee');
+				} else {
+					$handlingFee = ($shippingPrice * $this->getConfigData('handling_fee'))/100;
+					$shippingPrice += $handlingFee;
+				}
 
-			if ($this->getConfigData('type') == 'O') { // by order
-				$shippingPrice = $price;
-			} elseif ($type == 'I') { // by item
-				$shippingPrice = ($qty * $price);
-			} else {
-				$shippingPrice = false;
+				$rate = Mage::getModel('shipping/rate_result_method');
+				$rate->setCarrier('spainpost');
+				$rate->setCarrierTitle($this->getConfigData('title'));
+				$rate->setMethod($key);
+				$method_arr = $method['titulo'];
+				$rate->setMethodTitle(Mage::helper('nacex')->__($method_arr));
+				$rate->setCost($method['precio']);
+				$rate->setPrice($shippingPrice);
+				$result->append($rate);
 			}
-
-			// set the handling fee type....
-			$calculateHandlingFee = $this->getConfigData('handling_type');
-			$handlingFee = $this->getConfigData('handling_fee');
-			if ($this->getConfigData('handling_type') == 'F') {
-				$shippingPrice += $this->getConfigData('handling_fee');
-			} else {
-				$handlingFee = ($shippingPrice * $this->getConfigData('handling_fee'))/100;
-				$shippingPrice += $handlingFee;
-			}
-			
-			/*
-			$this->_comment .= "TIENDA: {$this->_frompcode}\n";
-			$this->_comment .= "CLIENTE: {$this->_topcode}\n";
-			$this->_comment .= "SERVICIO: {$this->_servicio}\n";
-			$this->_comment .= "METODO: {$this->_shipping_method}\n";
-			$this->_comment .= "PRECIO: {$old_price}\n";
-			$this->_comment .= "UNIDAD DE PESO: {$sweightunit}\n";
-			$this->_comment .= "PESO: {$this->_sweight}\n";
-			*/
-
-			$method->setCarrier('spainpost');
-			$method->setCarrierTitle($this->getConfigData('title'));
-			$method->setMethod($this->_shipping_method);
-			$method->setMethodTitle($this->getConfigData('title') . ": {$this->_shipping_method} <!--{$this->_comment}-->");
-			$method->setPrice($shippingPrice);
-			$method->setCost($shippingPrice);
-			$result->append($method);
 		} else {
-			return false;
+			$error = Mage::getModel('shipping/rate_result_error');
+			$error->setCarrier('spainpost');
+			$error->setCarrierTitle($this->getConfigData('title'));
+			$error->setErrorMessage($this->getConfigData('specificerrmsg'));
+			$result->append($error);
 		}
 		return $result;
 	}
@@ -156,10 +172,19 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 	* @return array
 	*/
 	public function getAllowedMethods() {
-		return array('spainpost' => $this->getConfigData('name'));
+		$allowed = explode(',', $this->getConfigData('allowed_methods'));
+		$arr = array();
+		foreach ($allowed as $k) {
+			$arr[$k] = array(
+				'precio'=>$this->getPrecio($k),
+				'titulo'=>"{$this->_shipping_method} - " . $this->getCode('method', $k)
+			);
+		}
+		return $arr;
 	}
 
-	public function getPrecio(){
+	public function getPrecio($cod = null){
+		$price=0;
 		switch($this->_servicio){
 			case 'PROVINCIAL':
 				$this->_shipping_method = 'PACK';
@@ -236,6 +261,14 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				break;
 			
 		}
+		// Agrega el iva mas un Euro
+		$price	=	($price * 1.16) + 1;
+		switch($cod){
+			case 'NAXGAB':
+				// En caso de ida  y vuelta duplica el valor
+				$price *= 2;
+				break;
+		}
 		return $price;
 	}
 	
@@ -275,4 +308,26 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				break;
 		}
 	}
+
+	public function getCode($type, $code='') {
+		$codes = array(
+			'method'=>array(
+				'NAXJOW'	=>	Mage::helper('nacex')->__('Nacex: Solo Ida'),
+				'NAXGAB'	=>	Mage::helper('nacex')->__('Nacex: Ida y Vuelta')
+			),
+		);
+
+		if (!isset($codes[$type])) {
+			return false;
+		} elseif (''===$code) {
+			return $codes[$type];
+		}
+
+		if (!isset($codes[$type][$code])) {
+			return false;
+		} else {
+			return $codes[$type][$code];
+		}
+	}
+
 }

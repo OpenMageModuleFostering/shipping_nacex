@@ -17,6 +17,11 @@
 				<class>Nacex_Shipping_Model</class>
 			</nacex>
 		</models>
+		<helpers>
+			<nacex>
+				<class>Nacex_Shipping_Helper</class>
+			</nacex>
+		</helpers>
 		<resources>
 			<nxshipping_setup>
 				<setup>
@@ -48,7 +53,6 @@
 				<active>1</active>
 				<model>nacex_shipping_model_carrier_spainpost</model>
 				<name>Nacex</name>
-				<type>O</type>
 				<title>Nacex</title>
 				<min_order_value>0</min_order_value>
 				<max_order_value>0</max_order_value>

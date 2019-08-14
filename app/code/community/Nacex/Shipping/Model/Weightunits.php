@@ -21,8 +21,8 @@
 class Nacex_Shipping_Model_Weightunits {
 	public function toOptionArray() {
 		return array(
-			array('value'=>1,		'label'=>Mage::helper('adminhtml')->__('Gramos')),
-			array('value'=>1000,	'label'=>Mage::helper('adminhtml')->__('Kilogramos')),
+			array('value'=>1,		'label'=>Mage::helper('nacex')->__('Gramos')),
+			array('value'=>1000,	'label'=>Mage::helper('nacex')->__('Kilogramos')),
 		);
 	}
 }
