@@ -240,7 +240,7 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		switch($code_store){
 			// PARA LA TIENDA EN BALEARES
 			case '07':
-				if(getRegion($code_store,$this->_topcode)){
+				if($this->getRegion($code_store,$this->_topcode)){
 					// PRECIO INTRAISLAS
 					$this->_servicio='INTRAISLAS';
 				} else {

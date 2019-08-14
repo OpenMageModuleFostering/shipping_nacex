@@ -1,23 +1,22 @@
 <?xml version="1.0"?>
 <package>
     <name>Shipping_Nacex</name>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <stability>stable</stability>
     <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
     <channel>community</channel>
     <extends/>
     <summary>Metodo de envio para nacex</summary>
     <description>Metodo de envio para nacex</description>
-    <notes>1.0.2
-*	Correccion en las funciones.
-*	Agregado de comentarios para verificar que los datos vayan bien.
+    <notes>1.0.3
+*	Arreglado el error al llamar a una funcion.
 
 CHANGES:
 	-&gt;U	app/code/community/Nacex/Shipping/Model/Carrier/Spainpost.php</notes>
     <authors><author><name>Manuel</name><user>auto-converted</user><email>manuelcanepa@gmail.com</email></author><author><name>Sophie</name><user>auto-converted</user><email>lalyostres@gmail.com</email></author></authors>
     <date>2008-10-17</date>
-    <time>11:50:14</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="da635493540be9ff524d891f76d752f1"/><file name="system.xml" hash="36b62fc3eeb18084f6c4626373f4bbd4"/></dir><dir name="Helper"><file name="Data.php" hash="b5d80af85823935e1e91081f0b5989aa"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="1cc5da890adbea2260bde35a65820c61"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
+    <time>12:24:22</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="da635493540be9ff524d891f76d752f1"/><file name="system.xml" hash="36b62fc3eeb18084f6c4626373f4bbd4"/></dir><dir name="Helper"><file name="Data.php" hash="b5d80af85823935e1e91081f0b5989aa"/></dir><dir name="Model"><dir name="Carrier"><file name="Spainpost.php" hash="c505f530bf602a49f49737ec1957533f"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies/>
 </package>
