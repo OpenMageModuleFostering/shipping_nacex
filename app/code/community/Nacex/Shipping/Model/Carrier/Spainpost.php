@@ -30,6 +30,7 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 	protected $_topcode;
 	protected $_servicio;
 	protected $_sweight;
+	protected $_comment;
 	protected $_code = 'spainpost';
 
 	/**
@@ -65,22 +66,22 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 		$this->_frompcode = Mage::getStoreConfig('shipping/origin/postcode', $this->getStore());
 		// CODIGO POSTAL DEL COMPRADOR
 		$this->_topcode = $request->getDestPostcode();
-
 		if ($request->getDestCountryId()) {
 			$destCountry = $request->getDestCountryId();
 		} else {
 			$destCountry = "ES";
 		}
 
-		$sweightunit = 1; //$this->getConfigData('weight_units');
+		$sweightunit = $this->getConfigData('weight_units');
 		$this->_sweight = $request->getPackageWeight()*$sweightunit;
 
 		// En el caso de que sea dentro de españa se muestra
 		// en caso contrario no
 		if($destCountry == "ES") {
 			$this->setServicio();
-
-			$price=($this->getPrecio() * 1.16) + 1;
+			
+			$old_price	=$this->getPrecio();
+			$price=($old_price * 1.16) + 1;
 
 			$method = Mage::getModel('shipping/rate_result_method');
 			
@@ -106,11 +107,19 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				$handlingFee = ($shippingPrice * $this->getConfigData('handling_fee'))/100;
 				$shippingPrice += $handlingFee;
 			}
+			
+			$this->_comment .= "TIENDA: {$this->_frompcode}\n";
+			$this->_comment .= "CLIENTE: {$this->_topcode}\n";
+			$this->_comment .= "SERVICIO: {$this->_servicio}\n";
+			$this->_comment .= "METODO: {$this->_shipping_method}\n";
+			$this->_comment .= "PRECIO: {$old_price}\n";
+			$this->_comment .= "UNIDAD DE PESO: {$sweightunit}\n";
+			$this->_comment .= "PESO: {$this->_sweight}\n";
 
 			$method->setCarrier('spainpost');
 			$method->setCarrierTitle($this->getConfigData('title'));
 			$method->setMethod($this->_shipping_method);
-			$method->setMethodTitle($this->getConfigData('title') . ": {$this->_shipping_method}");
+			$method->setMethodTitle($this->getConfigData('title') . ": {$this->_shipping_method} <!--{$this->_comment}-->");
 			$method->setPrice($shippingPrice);
 			$method->setCost($shippingPrice);
 			$result->append($method);
@@ -135,7 +144,6 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 			else
 				return false;
 		}
-		echo "<!--REGION: {$region}-->";
 		return $region;
 	}
 
@@ -213,7 +221,7 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				if($this->_sweight <= '2000') {
 					$this->_shipping_method = 'BAG';
 					$price = 6.18;
-				} elseif(($this->_sweight > '5000')){
+				} elseif(($this->_sweight <= '5000')){
 					$price = 6.95;
 				} elseif(($this->_sweight <='10000')){
 					$price = 8.76;
@@ -225,8 +233,6 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				break;
 			
 		}
-		echo "<!--METODO: {$this->_shipping_method}-->";
-		echo "<!--PRECIO: {$price}-->";
 		return $price;
 	}
 	
@@ -265,6 +271,5 @@ class Nacex_Shipping_Model_Carrier_Spainpost extends Mage_Shipping_Model_Carrier
 				}
 				break;
 		}
-		echo "<!--SERVICIO: {$this->_servicio}-->";
 	}
 }
