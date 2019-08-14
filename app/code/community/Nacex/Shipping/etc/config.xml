@@ -40,27 +40,40 @@
 		<sales>
 			<shipping>
 				<carriers>
-					<spainpost>
-						<class>Nacex_Shipping_Model_Carrier_Spainpost</class>
-					</spainpost>
+					<naxjow>
+						<class>Nacex_Shipping_Model_Carrier_Naxjow</class>
+					</naxjow>
+					<naxgab>
+						<class>Nacex_Shipping_Model_Carrier_Naxgab</class>
+					</naxgab>
 				</carriers>
 			</shipping>
 		</sales>
 	</global>
 	<default>
 		<carriers>
-			<spainpost>
+			<naxjow>
 				<active>1</active>
-				<model>nacex_shipping_model_carrier_spainpost</model>
-				<name>Nacex</name>
-				<title>Nacex</title>
+				<model>nacex_shipping_model_carrier_naxjow</model>
+				<title>Nacex solo ida</title>
+				<msg></msg>
 				<min_order_value>0</min_order_value>
 				<max_order_value>0</max_order_value>
 				<weight_units>1</weight_units>
 				<handling_fee>0</handling_fee>
-				<allowed_methods>NAXJOW,NAXGAB</allowed_methods>
 				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
-			</spainpost>
+			</naxjow>
+			<naxgab>
+				<active>1</active>
+				<model>nacex_shipping_model_carrier_naxgab</model>
+				<title>Nacex ida y vuelta</title>
+				<msg></msg>
+				<min_order_value>0</min_order_value>
+				<max_order_value>0</max_order_value>
+				<weight_units>1</weight_units>
+				<handling_fee>0</handling_fee>
+				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+			</naxgab>
 		</carriers>
 	</default>
 </config>

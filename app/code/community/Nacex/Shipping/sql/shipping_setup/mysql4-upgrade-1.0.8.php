@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento Nacex Shipping Module
+ * Magento Nacex Shipping
  *
  * NOTICE OF LICENSE
  *
@@ -18,11 +18,12 @@
  * @author	   
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class Nacex_Shipping_Model_Weightunits {
-	public function toOptionArray() {
-		return array(
-			array('value'=>1,		'label'=>Mage::helper('nacex')->__('Gramos')),
-			array('value'=>1000,	'label'=>Mage::helper('nacex')->__('Kilogramos')),
-		);
-	}
-}
+$installer = $this;
+/* @var $installer Mage_Core_Model_Resource_Setup */
+
+$installer->startSetup();
+
+$installer->run("DELETE FROM {$this->getTable('core_config_data')} WHERE path LIKE 'carriers/spainpost/%");
+
+$installer->endSetup();
+?>
