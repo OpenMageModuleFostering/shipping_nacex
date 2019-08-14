@@ -40,9 +40,9 @@
 		<sales>
 			<shipping>
 				<carriers>
-					<naxjow>
+					<spainpost>
 						<class>Nacex_Shipping_Model_Carrier_Naxjow</class>
-					</naxjow>
+					</spainpost>
 					<naxgab>
 						<class>Nacex_Shipping_Model_Carrier_Naxgab</class>
 					</naxgab>
@@ -52,7 +52,7 @@
 	</global>
 	<default>
 		<carriers>
-			<naxjow>
+			<spainpost>
 				<active>1</active>
 				<model>nacex_shipping_model_carrier_naxjow</model>
 				<title>Nacex solo ida</title>
@@ -62,7 +62,7 @@
 				<weight_units>1</weight_units>
 				<handling_fee>0</handling_fee>
 				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
-			</naxjow>
+			</spainpost>
 			<naxgab>
 				<active>1</active>
 				<model>nacex_shipping_model_carrier_naxgab</model>

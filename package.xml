@@ -1,30 +1,24 @@
 <?xml version="1.0"?>
 <package>
     <name>Shipping_Nacex</name>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <stability>stable</stability>
     <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
     <channel>community</channel>
     <extends/>
     <summary>Metodo de envio para nacex</summary>
     <description>Metodo de envio para nacex</description>
-    <notes>*	Separa los metodos de envio para poder ingresar un mensaje por cada uno de ellos
+    <notes>*	Repara errores de la version anterior
 
 &lt;b&gt;CHANGES:&lt;/b&gt;
-	-&gt;A	app/code/community/Nacex/Shipping/Model/Carrier/Naxgab.php
 	-&gt;A	app/code/community/Nacex/Shipping/Model/Carrier/Naxjow.php
-	-&gt;A	app/code/community/Nacex/Shipping/Model/Standard/Data.php
-	-&gt;A	app/code/community/Nacex/Shipping/Model/Standard/Weightunits.php
-	-&gt;A	app/code/community/Nacex/Shipping/sql/shipping_setup/mysql4-upgrade-1.0.8.php
-	-&gt;D	app/code/community/Nacex/Shipping/Model/Weightunits.php
-	-&gt;D	app/code/community/Nacex/Shipping/Model/Methods.php
-	-&gt;D	app/code/community/Nacex/Shipping/Model/Carrier/Spainpost.php
+	-&gt;D	app/code/community/Nacex/Shipping/sql/shipping_setup/mysql4-upgrade-1.0.8.php
 	-&gt;U	app/code/community/Nacex/Shipping/etc/system.xml
 	-&gt;U	app/code/community/Nacex/Shipping/etc/config.xml</notes>
     <authors><author><name>Manuel</name><user>auto-converted</user><email>manuelcanepa@gmail.com</email></author><author><name>Sophie</name><user>auto-converted</user><email>lalyostres@gmail.com</email></author></authors>
     <date>2008-12-17</date>
-    <time>15:33:17</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="90139df823a59b07d965a1b343605b63"/><file name="system.xml" hash="aa0681a29a20e81e7a791f469b1b3510"/></dir><dir name="Helper"><file name="Data.php" hash="8b06d6514b9924564f9078dd15cedc00"/></dir><dir name="Model"><dir name="Carrier"><file name="Naxgab.php" hash="6453eda945279aef44dc2ce120e64d1c"/><file name="Naxjow.php" hash="f9cfd6c8439ba411bb8191481ee4f991"/></dir><dir name="Standard"><file name="Data.php" hash="8bd42f98a950fd104e9d24bce8fdef22"/><file name="Weightunits.php" hash="3222717edd1948d4a793f7136d5f1868"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/><file name="mysql4-upgrade-1.0.8.php" hash="65271f8e9876ce68b917fc20dbb71abd"/></dir></dir></dir></dir></target></contents>
+    <time>15:55:43</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Nacex_Shipping.xml" hash="74bdf7f9847df2280af2666d8123d95b"/></dir></target><target name="magecommunity"><dir name="Nacex"><dir name="Shipping"><dir name="etc"><file name="config.xml" hash="f98f323bb97f5225e491d7e8957394d0"/><file name="system.xml" hash="3471e2c65a86e45f9ebad5cbf094777e"/></dir><dir name="Helper"><file name="Data.php" hash="8b06d6514b9924564f9078dd15cedc00"/></dir><dir name="Model"><dir name="Carrier"><file name="Naxgab.php" hash="6453eda945279aef44dc2ce120e64d1c"/><file name="Naxjow.php" hash="4237353036ecd090c6d31bc427280859"/></dir><dir name="Standard"><file name="Data.php" hash="8bd42f98a950fd104e9d24bce8fdef22"/><file name="Weightunits.php" hash="3222717edd1948d4a793f7136d5f1868"/></dir></dir><dir name="sql"><dir name="shipping_setup"><file name="mysql4-install-0.1.0.php" hash="d614fdc964125e1ff642933cc8014583"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies/>
 </package>

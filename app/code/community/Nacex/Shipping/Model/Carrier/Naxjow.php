@@ -6,7 +6,7 @@ class Nacex_Shipping_Model_Carrier_Naxjow extends Mage_Shipping_Model_Carrier_Ab
 	protected $_servicio;
 	protected $_sweight;
 	protected $_title;
-	protected $_code = 'naxjow';
+	protected $_code = 'spainpost';
 
 	public function __construct(){
 		$this->_title	=	$this->getConfigData('title');
